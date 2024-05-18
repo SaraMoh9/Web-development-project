@@ -1,0 +1,112 @@
+Question 1: Introduction to Null Safety in Dart
+
+Objective:
+To reinforce understanding of the concept of null safety in Dart and its significance in writing reliable code.
+
+Tasks:
+1.	Write a short essay explaining the importance of null safety in Dart programming(two lines max).
+
+Null safety in Dart programming ensures robustness and reliability by preventing null reference errors, thereby improving code quality and reducing debugging time.
+
+2.	Create a Dart program that demonstrates the difference between nullable and non-nullable variables. Use both nullable and non-nullable
+variables in your program and explain how null safety affects their usage. 
+
+void main() {
+  // Non-nullable variable
+  int nonNullableVar = 10;
+  print('Non-nullable variable: $nonNullableVar');
+
+  // Nullable variable
+  int? nullableVar = null;
+  print('Nullable variable: $nullableVar');
+
+  // Uncomment the line below to see the effect of null safety
+  // int nonNullableResult = nullableVar + 5; // Error: Null check operator used on a null value
+
+  // To handle nullable variables, you can use null-aware operators or null checks
+  int nonNullableResult = nullableVar ?? 0; // Using null-aware operator
+  print('Result after null-aware operator: $nonNullableResult');
+}
+
+
+
+Question 2: Handling Null Values in Dart
+
+Objective:
+To practice working with nullable types and null-aware operators in Dart to effectively handle null values.
+
+Tasks:
+1.	Write a Dart program that demonstrates the use of null-aware operators (??, ?., ??=) to handle null values.
+Include examples of each operator in your program and explain their purpose.
+
+void main() {
+  // Null-aware coalescing operator (??)
+  int? nullableValue = null;
+  int nonNullableValue = nullableValue ?? 10;
+  print('Non-nullable value after null-aware coalescing: $nonNullableValue');
+
+  // Null-aware access operator (?.)
+  String? nullableString = null;
+  int length = nullableString?.length ?? -1;
+  print('Length of nullable string: $length');
+
+  // Null-aware assignment operator (??=)
+  int? nullableNumber;
+  nullableNumber ??= 5;
+  print('Nullable number after null-aware assignment: $nullableNumber');
+}
+
+2.	Write a Dart program and develop a function that takes a nullable integer parameter and returns a non-nullable integer.
+Handle null values appropriately within the function and explain your approach.
+
+int convertToNonNullableInt(int? nullableInt) {
+  if (nullableInt == null) {
+    // Handle null value by providing a default value
+    return 0;
+  }
+  // Convert nullable integer to non-nullable integer
+  return nullableInt;
+}
+
+void main() {
+  int? nullableValue = null;
+  int nonNullableValue = convertToNonNullableInt(nullableValue);
+  print('Non-nullable value: $nonNullableValue');
+}
+
+3.	Create a Dart program that reads user input for a person's age and prints a customized message based on the input.
+Ensure the program handles null values and invalid input gracefully.
+
+import 'dart:io';
+
+void main() {
+  stdout.write('Enter your age: ');
+  String? input = stdin.readLineSync();
+
+  try {
+    int age = int.parse(input!);
+    if (age >= 0 && age <= 120) {
+      print('Your age is $age.');
+    } else {
+      print('Invalid age: Please enter a valid age between 0 and 120.');
+    }
+  } catch (e) {
+    print('Invalid input: Please enter a valid integer.');
+  }
+}
+
+Question 3: Handling Null Values in Dart
+
+Objective:
+To delve deeper into advanced techniques for handling null values in Dart and practice implementing null-safe code patterns.
+
+Tasks:
+1.	Write a Dart program that utilizes the late keyword and null assertion operator (!) to handle delayed initialization of non-nullable variables.
+
+late int lateValue;
+
+void main() {
+  lateValue = 10;
+
+  print('Late value: ${lateValue!}');
+}
