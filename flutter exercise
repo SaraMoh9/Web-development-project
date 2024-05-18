@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+void main(){
+  runApp(MyApp());
+}
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // return a widget
+  return MaterialApp(home: Text('Hello'),);
+  }
+}
+
+Modify this program doing the following:
+ Change the text in Text widget inside MaterialApp to your name.
+ Change the color of the Text widget to white. (Hint: lookup TextStyle widget)
+ Create a new custom widget that has a Text widget that displays the 
+
+
+sol:
+
+import 'package:flutter/material.dart';
+void main() {
+runApp(MyApp());
+}
+class MyApp extends StatelessWidget {
+@override
+Widget build(BuildContext context) {
+// return a widget
+return MaterialApp(
+title: 'Flutter Demo',
+home: Scaffold(
+appBar: AppBar(
+title: Text('Sara'),
+),
+body: Container(
+color: Color(0xffe194d4),
+child: Center(
+child: Column(
+mainAxisAlignment: MainAxisAlignment.center,
+children: [
+SizedBox(height: 22),
+Container(
+padding: EdgeInsets.all(12),
+color: Colors.blue[500],
+child: Text(
+'Flutter uses Dart',
+style: TextStyle(
+fontSize: 26,
+fontWeight: FontWeight.bold,
+),
+),
+),
+],
+),
+),
+),
+),
+);
+}
+
