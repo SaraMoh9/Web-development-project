@@ -1,0 +1,65 @@
+1. Create a constant called myAge and set it to your age. Then, create a constant
+named isTeenager that uses Boolean logic to determine if the age denotes
+someone in the age range of 13 to 19.
+
+void main() {
+  const myAge = 25;
+  const isTeenager = myAge >= 13 && myAge <= 19;
+  print('Am I a teenager? $isTeenager');
+}
+
+
+
+2. Create another constant named maryAge and set it to 30. Then, create a constant
+named bothTeenagers that uses Boolean logic to determine if both you and
+Mary are teenagers.
+
+void main() {
+  const myAge = 25;
+  const maryAge = 30;
+  const bothTeenagers = (myAge >= 13 && myAge <= 19) && (maryAge >= 13 && maryAge <= 19);
+  print('Are both of us teenagers? $bothTeenagers');
+}
+
+
+
+3. Create a String constant named reader and set it to your name. Create another
+String constant named ray and set it to 'Ray Wenderlich'. Create a Boolean
+constant named rayIsReader that uses string equality to determine if reader
+and ray are equal. Now that you understand Boolean logic, you’re going to use that knowledge to make decisions in your code.
+
+void main() {
+  const reader = 'John';
+  const ray = 'Ray Wenderlich';
+  const rayIsReader = reader == ray;
+  print('Is Ray also the reader? $rayIsReader');
+}
+
+
+
+4. Create a constant named myAge and initialize it with your age. Write an if
+statement to print out “Teenager” if your age is between 13 and 19, and “Not a
+teenager” if your age is not between 13 and 19.
+
+void main() {
+  const myAge = 25;
+  
+  if (myAge >= 13 && myAge <= 19) {
+    print('Teenager');
+  } else {
+    print('Not a teenager');
+  }
+}
+
+
+
+5. Use a ternary conditional operator to replace the else-if statement that you
+used above. Set the result to a variable named answer.
+
+void main() {
+  const myAge = 25;
+  
+  // Using ternary conditional operator
+  final answer = myAge >= 13 && myAge <= 19 ? 'Teenager' : 'Not a teenager';
+  print(answer);
+}
