@@ -1,0 +1,64 @@
+Exercise 1:
+
+1. Write a function named youAreWonderful, with a string parameter called name.
+It should return a string using name, and say something like “You’re wonderful,Bob.”
+2. Add another int parameter to that function called numberPeople so that the
+function returns something like “You’re wonderful, Bob. 10 people think so.”
+3. Make both inputs named parameters. Make name required and set numberPeople
+to have a default of 30..
+
+String youAreWonderful({required String name, int numberPeople = 30}) {
+  return 'You\'re wonderful, $name. $numberPeople people think so.';
+}
+
+void main() {
+  print(youAreWonderful('Bob'));
+  print(youAreWonderful('Bob', 10));
+  print(youAreWonderful(name: 'Bob', numberPeople: 10));
+}
+
+
+
+Exercise 2:
+Start with the following list of numbers:
+const numbers = [1, 2, 4, 7];
+Print the square of each number: 1, 4, 16 and 49.
+1.	First, use a for loop.
+
+void main() {
+  const numbers = [1, 2, 4, 7];
+  
+  for (var i = 0; i < numbers.length; i++) {
+    final square = numbers[i] * numbers[i];
+    print(square);
+  }
+}
+
+2.	Solve the problem again using a for-in loop.
+
+void main() {
+  const numbers = [1, 2, 4, 7];
+  
+  for (var number in numbers) {
+    final square = number * number;
+    print(square);
+  }
+}
+
+
+
+Exercise 3:
+Write a code to combine list1 and only the even numbers  of list2. Print the out put.
+
+list1=[12, 4,5,8,1]
+list2=[2, 3,4,5,6,7]
+
+void main() {
+  final list1 = [12, 4, 5, 8, 1];
+  final list2 = [2, 3, 4, 5, 6, 7];
+  
+  final evenNumbersList2 = list2.where((number) => number % 2 == 0);
+  final combinedList = [...list1, ...evenNumbersList2];
+  
+  print(combinedList);
+}
