@@ -1,11 +1,386 @@
 project idea:
 
-In an age where technology has become an integral part of our daily lives, the development of a Flutter program that alerts patients when their medication is due is a much-needed solution to improve medication adherence and patient safety.
+The idea is to develop an application that assists patients in managing their
+medication schedules by sending them timely reminders when it&#39;s time to take
+their medication. The app will allow users to input their medication details,
+such as name, dosage, frequency, and times for taking the medication. Then,
+based on the provided information, the app will schedule notifications to alert
+the user when it&#39;s time to take their medication. This way, patients can stay on
+track with their medication regimen and ensure they take their medications as
+prescribed.
 
-project idea is to develop an application that assists patients in managing their medication schedules by sending them timely reminders when it&#39;s time to take their medication. The app will allow users to input their medication details, such as name, dosage, frequency, and times for taking the medication. Then, based on the provided information, the app will schedule notifications to alert the user when it&#39;s time to take their medication. This way, patients can stay on track with their medication regimen and ensure they take their medications as prescribed.
+Moreover, the program can also provide additional features like tracking
+medication refills and sending notifications to healthcare providers in case of
+missed doses or potential drug interactions. By taking advantage of
+scheduling flexibility provided by medication directions, the Flutter program
+makes the user&#39;s medication schedule easy to adhere and tolerant to
+tardiness whenever possible.
 
-By utilizing artificial intelligence and integrating patient-specific data, such as medication schedules and dosage instructions, the Flutter program can automatically generate reminders to ensure that patients take their medication at the correct time. This would alleviate the burden of manually tracking medication schedules for both patients and healthcare providers.
+The motivation for choosing this specific idea stems from the following reasons:
 
-Moreover, the program can also provide additional features like tracking medication refills and sending notifications to healthcare providers in case of missed doses or potential drug interactions. By taking advantage of scheduling flexibility provided by medication directions, the Flutter program makes the user&#39;s medication schedule easy to adhere and tolerant to tardiness whenever possible.
+1- Healthcare Support.
+2- Improved Patient Adherence.
+3- Convenience and Accessibility.
+4- Empowerment and Autonomy.
 
-This innovative program eliminates the need for manual entry of medication schedules and reduces the risk of missed doses, medication errors, and adverse drug events. With the Flutter program, patients can have peace of mind knowing that they will never miss a dose of their medication again. By utilizing electronically monitored adherence feedback and technical reminder systems, the Flutter.
+Overall, The motivation revolves around leveraging technology to address a
+significant healthcare challenge, improve patient outcomes, and empower individuals
+to actively participate in managing their health.
+
+The project code:
+
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:timezone/timezone.dart' as tz;
+
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+void main() {
+  runApp(MedicationReminderApp());
+}
+
+class MedicationReminderApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Medication Reminder',
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+        scaffoldBackgroundColor: Colors.white,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MainInterface(),
+    );
+  }
+}
+
+class MainInterface extends StatefulWidget {
+  @override
+  _MainInterfaceState createState() => _MainInterfaceState();
+}
+
+class _MainInterfaceState extends State<MainInterface> {
+  @override
+  void initState() {
+    super.initState();
+    initializeNotifications();
+    Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MedicationListPage()),
+      );
+    });
+  }
+
+  Future<void> initializeNotifications() async {
+    final AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+            android: initializationSettingsAndroid, iOS: null, macOS: null);
+
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: selectNotification);
+  }
+
+  Future selectNotification(String? payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: $payload');
+    }
+    // Navigate to a specific page when a notification is tapped
+    // Example: Navigator.pushNamed(context, '/page-name');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Image.asset('assets/Images/img1.jpg'),
+      ),
+    );
+  }
+}
+
+class MedicationListPage extends StatefulWidget {
+  @override
+  _MedicationListPageState createState() => _MedicationListPageState();
+}
+
+class _MedicationListPageState extends State<MedicationListPage> {
+  List<MedicationCard> medications = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _scheduleNotification();
+  }
+
+  Future<void> _scheduleNotification() async {
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'medication_reminder_channel',
+      'Medication Reminder',
+      'Channel for medication reminders',
+      importance: Importance.max,
+      priority: Priority.high,
+      ticker: 'ticker',
+    );
+
+    var platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      0,
+      'Medication Reminder',
+      'Time to take your medication!',
+      _nextInstanceOfTime(),
+      platformChannelSpecifics,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time,
+    );
+  }
+
+  tz.TZDateTime _nextInstanceOfTime() {
+    // You need to implement logic to determine the next time instance
+    // when the medication should be taken
+    // For now, it's set to 10 seconds from now
+    return tz.TZDateTime.now(tz.local).add(const Duration(seconds: 10));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Welcome'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(15.5),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                'Your Medications',
+                style: TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).primaryColor),
+              ),
+              SizedBox(height: 22),
+              Column(
+                children: medications.map((medication) => medication).toList(),
+              ),
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddMedicationPage()),
+          );
+          if (result != null) {
+            setState(() {
+              medications.add(result);
+            });
+          }
+        },
+        tooltip: 'Add your Medication',
+        backgroundColor: Color(0xff3590e5),
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class MedicationCard extends StatelessWidget {
+  final String name;
+  final String dosage;
+  final String frequency;
+  final List<String> times;
+
+  MedicationCard(
+      {required this.name,
+      required this.dosage,
+      required this.frequency,
+      required this.times});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      margin: EdgeInsets.symmetric(vertical: 11),
+      child: Padding(
+        padding: EdgeInsets.all(15.5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              name,
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor),
+            ),
+            SizedBox(height: 8),
+            Text('Dosage: $dosage', style: TextStyle(color: Colors.grey[700])),
+            Text('Frequency: $frequency',
+                style: TextStyle(color: Colors.grey[700])),
+            Text(
+              'Times:',
+              style: TextStyle(color: Colors.grey[700]),
+            ),
+            ...times.map((time) =>
+                Text(time, style: TextStyle(color: Colors.grey[700]))),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AddMedicationPage extends StatefulWidget {
+  @override
+  _AddMedicationPageState createState() => _AddMedicationPageState();
+}
+
+class _AddMedicationPageState extends State<AddMedicationPage> {
+  String name = '';
+  String dosage = '';
+  String frequency = '';
+  List<String> times = [];
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController dosageController = TextEditingController();
+  TextEditingController frequencyController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
+
+  void addTime(String newTime) {
+    setState(() {
+      times.add(newTime);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Add Medication'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(15.5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(labelText: 'Medication Name'),
+              onChanged: (value) {
+                setState(() {
+                  name = value;
+                });
+              },
+            ),
+            TextField(
+              controller: dosageController,
+              decoration: InputDecoration(labelText: 'Dosage in mg'),
+              onChanged: (value) {
+                setState(() {
+                  dosage = value;
+                });
+              },
+            ),
+            TextField(
+              controller: frequencyController,
+              decoration:
+                  InputDecoration(labelText: 'Number of repetitions per day'),
+              onChanged: (value) {
+                setState(() {
+                  frequency = value;
+                });
+              },
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: timeController,
+                    decoration: InputDecoration(labelText: 'Time'),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    addTime(timeController.text);
+                    timeController.clear();
+                  },
+                ),
+              ],
+            ),
+            SizedBox(height: 21),
+            Text(
+              'Times:',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 9),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: times
+                  .map((time) => Text(
+                        time,
+                        style: TextStyle(color: Color(0xffc2d2d9)),
+                      ))
+                  .toList(),
+            ),
+            SizedBox(height: 21),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  if (name.isNotEmpty &&
+                      dosage.isNotEmpty &&
+                      frequency.isNotEmpty &&
+                      times.isNotEmpty) {
+                    Navigator.pop(
+                      context,
+                      MedicationCard(
+                        name: name,
+                        dosage: dosage,
+                        frequency: frequency,
+                        times: List.from(times),
+                      ),
+                    );
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Error'),
+                          content: Text('Please fill all fields.'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                },
+                child: Text('Add Medication'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
