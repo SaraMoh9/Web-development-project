@@ -1,0 +1,80 @@
+import 'package:flutter/material.dart';
+
+import 'dart:math';
+
+void main() {
+  runApp(ImageDisplayApp());
+}
+
+class ImageDisplayApp extends StatefulWidget {
+  @override
+  _ImageDisplayAppState createState() => _ImageDisplayAppState();
+}
+
+class _ImageDisplayAppState extends State<ImageDisplayApp> {
+  List<String> images = [
+    "assets/img/IMG_1852.jpg",
+    "assets/img/IMG_1853.jpg",
+    "assets/img/IMG_1854.jpg",
+    "assets/img/IMG_1855.jpg",
+    "assets/img/IMG_1857.jpg",
+  ];
+  List<int> shuffledIndices = [];
+
+  int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    shuffledIndices = List.generate(images.length, (index) => index);
+
+    shuffledIndices.shuffle();
+  }
+
+  void changeImage() {
+    setState(() {
+      currentIndex = (currentIndex + 1) % images.length;
+    });
+  }
+
+  void MixImages() {
+    setState(() {
+      shuffledIndices.shuffle();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Image Display App'),
+          backgroundColor: Color(0xffd4d2d2),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(images[shuffledIndices[currentIndex]]),
+              SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () {
+                  changeImage();
+                },
+                child: Text('Next Image'),
+              ),
+              SizedBox(height: 15),
+              ElevatedButton(
+                onPressed: () {
+                  MixImages();
+                },
+                child: Text('Random Image'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
