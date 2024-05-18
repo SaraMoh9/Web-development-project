@@ -1,35 +1,11 @@
 project idea:
 
-In an age where technology has become an integral part of our daily lives, the
-development of a Flutter program that alerts patients when their medication is
-due is a much-needed solution to improve medication adherence and patient
-safety.
+In an age where technology has become an integral part of our daily lives, the development of a Flutter program that alerts patients when their medication is due is a much-needed solution to improve medication adherence and patient safety.
 
-Our idea is to develop an application that assists patients in managing their
-medication schedules by sending them timely reminders when it&#39;s time to take
-their medication. The app will allow users to input their medication details,
-such as name, dosage, frequency, and times for taking the medication. Then,
-based on the provided information, the app will schedule notifications to alert
-the user when it&#39;s time to take their medication. This way, patients can stay on
-track with their medication regimen and ensure they take their medications as
-prescribed.
+project idea is to develop an application that assists patients in managing their medication schedules by sending them timely reminders when it&#39;s time to take their medication. The app will allow users to input their medication details, such as name, dosage, frequency, and times for taking the medication. Then, based on the provided information, the app will schedule notifications to alert the user when it&#39;s time to take their medication. This way, patients can stay on track with their medication regimen and ensure they take their medications as prescribed.
 
-By utilizing artificial intelligence and integrating patient-specific data, such as
-medication schedules and dosage instructions, the Flutter program can
-automatically generate reminders to ensure that patients take their medication
-at the correct time. This would alleviate the burden of manually tracking
-medication schedules for both patients and healthcare providers.
+By utilizing artificial intelligence and integrating patient-specific data, such as medication schedules and dosage instructions, the Flutter program can automatically generate reminders to ensure that patients take their medication at the correct time. This would alleviate the burden of manually tracking medication schedules for both patients and healthcare providers.
 
-Moreover, the program can also provide additional features like tracking
-medication refills and sending notifications to healthcare providers in case of
-missed doses or potential drug interactions. By taking advantage of
-scheduling flexibility provided by medication directions, the Flutter program
-makes the user&#39;s medication schedule easy to adhere and tolerant to
-tardiness whenever possible.
+Moreover, the program can also provide additional features like tracking medication refills and sending notifications to healthcare providers in case of missed doses or potential drug interactions. By taking advantage of scheduling flexibility provided by medication directions, the Flutter program makes the user&#39;s medication schedule easy to adhere and tolerant to tardiness whenever possible.
 
-This innovative program eliminates the need for manual entry of medication
-schedules and reduces the risk of missed doses, medication errors, and
-adverse drug events. With the Flutter program, patients can have peace of
-mind knowing that they will never miss a dose of their medication again. By
-utilizing electronically monitored adherence feedback and technical reminder
-systems, the Flutter.
+This innovative program eliminates the need for manual entry of medication schedules and reduces the risk of missed doses, medication errors, and adverse drug events. With the Flutter program, patients can have peace of mind knowing that they will never miss a dose of their medication again. By utilizing electronically monitored adherence feedback and technical reminder systems, the Flutter.
